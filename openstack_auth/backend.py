@@ -73,6 +73,17 @@ class KeystoneBackend(object):
         ca_cert = getattr(settings, "OPENSTACK_SSL_CACERT", None)
         endpoint_type = getattr(
             settings, 'OPENSTACK_ENDPOINT_TYPE', 'publicURL')
+	
+        # Take REMOTE_USER from session. If its not there then declinet user.
+	remote_user = request.environ.get('REMOTE_USER')
+        if remote_user:
+           LOG.warning("\n\n::REMOTE User Found in System. Populating Default values::\n\n")
+           username = request.environ.get('REMOTE_USER')
+           password = request.environ.get('REMOTE_USER')	
+	else:
+           msg = _('Invalid user name or password.')
+           LOG.debug(str(exc))
+           raise exceptions.KeystoneAuthException(msg)
 
         if auth_url is None:
             auth_url = settings.OPENSTACK_KEYSTONE_URL

@@ -49,8 +49,8 @@ class Login(django_auth_forms.AuthenticationForm):
     username = forms.CharField(
         label=_("User Name"),
         widget=forms.TextInput(attrs={"autofocus": "autofocus"}))
-    password = forms.CharField(label=_("Password"),
-                               widget=forms.PasswordInput(render_value=False))
+    password = forms.TextInput(label=_("Password"),
+                               widget=forms.HiddenInput())
 
     def __init__(self, *args, **kwargs):
         super(Login, self).__init__(*args, **kwargs)

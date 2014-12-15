@@ -58,6 +58,13 @@ def login(request, template_name=None, extra_context=None, **kwargs):
                 auth.REDIRECT_FIELD_NAME not in request.POST):
             return shortcuts.redirect(settings.LOGIN_REDIRECT_URL)
 
+    remote_user = request.environ.get('REMOTE_USER')
+    if remote_user:
+       LOG.warning("\n\n::REMOTE User Found in System. Populating Default values::\n\n")
+       initial = {'username':remote_user}
+    else:
+       LOG.warning("\n\nNo REMOTE_USER in session. Using normal credentials.::\n\n")
+
     # Get our initial region for the form.
     initial = {}
     current_region = request.session.get('region_endpoint', None)
