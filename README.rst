@@ -7,3 +7,4 @@ works with Django's ``contrib.auth`` framework to authenticate a user against
 OpenStack's Keystone Identity API.
 
 The current version is designed to work with the Keystone v2.0 and v3 API.
+updated
